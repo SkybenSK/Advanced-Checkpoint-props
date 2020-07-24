@@ -1,12 +1,85 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+
+
+const ProductTable =props => {
+  const productsArray = props.products;
+  const productsItems = productsArray.map((item) =>
+   
+    <ProductRow {...item} />
+    
+  );
+
+  return (
+  <table style={{margin:"50px auto", width: "80%",border:"1px solid #ccc" }}>
+    <thead style={{ backgroundColor: "#f1f1f1", textTransform:"uppercase"}}>
+      <th style={{padding:10}}>Product</th>
+      <th>Price</th>
+      <th>Category</th>
+    </thead>
+    <tbody style={{ textAlign: "center"}}>
+    {productsItems}
+    </tbody>
+  </table>
+  );
+}
+
+
+
+const ProductRow = props => {
+  return (
+    <tr>
+    <td style={{padding:10}}>{props.name}</td>
+    <td>{props.price}</td>
+    <td>{props.category}</td>
+    </tr>
+
+  );
+};
+
+ProductRow.propTypes = {
+  name: PropTypes.string,
+  price: PropTypes.string,
+  category : PropTypes.string,
+};
+
+
+const products = [
+  {
+      name: 'Phone',
+      price: '300$',
+      category : 'Electronics'
+  },
+
+  {
+    name: 'Blender',
+    price: '150$',
+    category : 'Electronics'
+  },
+
+  {
+      name: 'Tshirt',
+      price: '35$',
+      category : 'Clothes'
+  },
+
+  {
+    name: 'Skirt',
+    price: '45$',
+    category : 'Clothes'
+},
+
+];
+
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ProductTable products={products} />
   </React.StrictMode>,
   document.getElementById('root')
 );
